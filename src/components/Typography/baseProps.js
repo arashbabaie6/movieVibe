@@ -331,7 +331,7 @@ export const display = () => css`
     display: ${(props) => (props.displayT ? props.displayT : '')};
   }
   @media ${({ theme }) => theme.device.mobile} {
-    display: ${(props) => props.displayM && props.displayM};
+    display: ${(props) => props.displayM ? props.displayM : ''};
   }
 `;
 

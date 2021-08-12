@@ -4,7 +4,7 @@ const colors = (theme) => ({
   gray2: theme === 'dark' ? '#1C2035' : '#EDEDED',
   gray3: theme === 'dark' ? '#343C65' : '#B2B2B5',
   black: theme === 'dark' ? '#0F121F' : '#F5F5F5',
-  accent: '#3950FD',
+  accent: '#032541',
   forceWhite: '#FFFFFF',
   green: '#39D98A',
   darkGreen: '#20A965',
@@ -13,6 +13,7 @@ const colors = (theme) => ({
   orange: '#FDAC42',
   darkOrange: '#E78402',
   darkBlue: '#161d56',
+  lightBlue: '#0079a3',
 });
 
 export default colors;

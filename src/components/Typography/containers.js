@@ -17,7 +17,7 @@ import {
 } from './baseProps';
 
 const Box = styled.div`
-  direction: ${(props) => (props.direction ? props.direction : 'rtl')};
+  direction: ${(props) => (props.direction ? props.direction : 'ltr')};
   position: ${(props) => (props.position ? props.position : '')};
   box-sizing: border-box;
   ${background};

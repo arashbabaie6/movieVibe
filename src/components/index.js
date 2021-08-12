@@ -12,3 +12,8 @@ export * from "./Loading";
  * Layouts
  */
 export * from "./Layouts";
+
+/**
+ * HamburgerMenu
+ */
+ export * from "./HamburgerMenu";
