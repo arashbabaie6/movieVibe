@@ -14,7 +14,7 @@ const HomePage = () => {
 
   useEffect(() => {
     axios()
-      .get("trending/movie/day")
+      .get("/movie/popular")
       .then((res) => {
         const src = generateMediaDiscoverSrc(res.data.results);
         setMediaDiscover(src);

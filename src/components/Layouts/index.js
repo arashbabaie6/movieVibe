@@ -1,2 +1,2 @@
-import Navbar from "./navbar";
-export { Navbar };
+import MainLayout from "./MainLayout";
+export { MainLayout };
