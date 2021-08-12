@@ -64,8 +64,8 @@ const Navbar = (props) => {
           display={visible ? "flex" : "none"}
           flexDirection="column"
         >
-          <Text color="forceWhite">Movies</Text>
-          <Text color="forceWhite">TV Shows</Text>
+          <Link to='/movies'><Text color="forceWhite">Movies</Text></Link>
+          <Link to='/tv-shows'><Text color="forceWhite">TV Shows</Text></Link>
         </Flex>
       </Flex>
       <Flex
@@ -82,8 +82,8 @@ const Navbar = (props) => {
               Movie Vibe
             </Text>
           </Link>
-          <Text color="forceWhite">Movies</Text>
-          <Text color="forceWhite">TV Shows</Text>
+          <Link to='/movies'><Text color="forceWhite">Movies</Text></Link>
+          <Link to='/tv-shows'><Text color="forceWhite">TV Shows</Text></Link>
         </Flex>
 
         <Flex>

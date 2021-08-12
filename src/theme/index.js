@@ -3,7 +3,7 @@ import device, { breakpoints } from './devices';
 import { useState } from 'react';
 
 export default () => {
-  const [theme, setTheme] = useState('dark');
+  const [theme, setTheme] = useState('light');
 
   return {
     colors: colors(theme),
