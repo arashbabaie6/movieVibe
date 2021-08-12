@@ -1,12 +1,12 @@
-const HtmlWebPackPlugin = require('html-webpack-plugin');
-const path = require('path');
+const HtmlWebPackPlugin = require("html-webpack-plugin");
+const path = require("path");
 
 module.exports = {
-  entry: './src/index.js',
+  entry: "./src/index.js",
   output: {
-    filename: 'main.js',
-    path: path.resolve(__dirname, 'dist'),
-    publicPath: '/',
+    filename: "[name].bundle.js",
+    path: path.resolve(__dirname, "dist"),
+    publicPath: "/",
   },
   module: {
     rules: [
@@ -14,47 +14,50 @@ module.exports = {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader',
+          loader: "babel-loader",
         },
       },
       {
         test: /\.html$/,
         use: [
           {
-            loader: 'html-loader',
+            loader: "html-loader",
           },
         ],
       },
       {
         test: /\.(ttf)$/,
         use: {
-          loader: 'url-loader',
+          loader: "url-loader",
         },
       },
       {
         test: /\.(png|svg|jpg|gif)$/,
-        use: ['file-loader'],
+        use: ["file-loader"],
       },
     ],
   },
   devServer: {
-    contentBase: path.join(__dirname, 'dist'),
+    contentBase: path.join(__dirname, "dist"),
     port: 9000,
     historyApiFallback: true,
     open: true,
   },
   plugins: [
     new HtmlWebPackPlugin({
-      template: './src/index.html',
-      filename: './index.html',
+      template: "./src/index.html",
+      filename: "./index.html",
     }),
   ],
   resolve: {
     alias: {
-      public: path.resolve(__dirname, 'public'),
-      components: path.resolve(__dirname, 'src/components'),
-      axiosHelper: path.resolve(__dirname, 'src/configs/axios.config.js'),
+      public: path.resolve(__dirname, "public"),
+      components: path.resolve(__dirname, "src/components"),
+      axiosHelper: path.resolve(__dirname, "src/configs/axios.config.js"),
     },
-    extensions: ['.js', '.jsx', '.json'],
+    extensions: [".js", ".jsx", ".json"],
+  },
+  optimization: {
+    runtimeChunk: "single",
   },
 };
