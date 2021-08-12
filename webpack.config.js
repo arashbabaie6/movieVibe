@@ -53,6 +53,7 @@ module.exports = {
     alias: {
       public: path.resolve(__dirname, 'public'),
       components: path.resolve(__dirname, 'src/components'),
+      axiosHelper: path.resolve(__dirname, 'src/configs/axios.config.js'),
     },
     extensions: ['.js', '.jsx', '.json'],
   },
