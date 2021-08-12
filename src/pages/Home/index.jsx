@@ -5,12 +5,11 @@ import { MediaDiscover } from "./home-page.style";
 import axios from "axiosHelper";
 
 function generateMediaDiscoverSrc(listOfMovies) {
-  console.log({ listOfMovies });
   const randomNumber = Math.ceil(Math.random() * (listOfMovies.length - 1));
   return listOfMovies[randomNumber].poster_path;
 }
 
-const HomePage = (props) => {
+const HomePage = () => {
   const [mediaDiscoverSrc, setMediaDiscover] = useState(null);
 
   useEffect(() => {
