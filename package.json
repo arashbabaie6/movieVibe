@@ -1,12 +1,16 @@
 {
   "name": "movievibe",
   "version": "1.0.0",
+  "homepage":"http://arashbabaie6.github.io/movieVibe/",
   "description": "",
   "main": "index.js",
   "scripts": {
     "dev": "webpack serve --hot --mode development",
-    "build": "webpack serve --mode production",
-    "bootstrap": "npm ci && npm run build"
+    "production": "webpack serve --mode production",
+    "build":"webpack --mode production",
+    "bootstrap": "npm ci && npm run production",
+    "predeploy": "rm -rf ./dist && npm run build",
+    "deploy": "gh-pages -b main -d dist"
   },
   "author": "Arash",
   "license": "ISC",
