@@ -17,3 +17,8 @@ export * from "./Layouts";
  * HamburgerMenu
  */
  export * from "./HamburgerMenu";
+
+ /**
+ * Image
+ */
+  export * from "./Image";
