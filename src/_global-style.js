@@ -1,13 +1,14 @@
-import { createGlobalStyle, ThemeProvider } from 'styled-components';
+import { createGlobalStyle } from 'styled-components';
+import SourceSansProRegular from '../public/fonts/SourceSansPro-Regular.ttf'
 
 const GlobalStyle = createGlobalStyle`
   @font-face {
-      font-family: 'Vazir-Regular';
-      src: url(${VazirRegular}) format("woff");
+      font-family: 'SourceSansPro-Regular';
+      src: url(${SourceSansProRegular}) format("ttf");
   }
 
   body {
-    font-family: 'Vazir-Regular';
+    font-family: 'SourceSansPro-Regular';
     margin: 0;
     padding: 0;
     background-color: ${(props) => props.theme.colors.black};

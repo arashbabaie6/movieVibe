@@ -14,7 +14,7 @@ import {
 
 export const Text = styled.span`
   position: ${(props) => (props.position ? props.position : '')};
-  font-family: 'Vazir-Regular';
+  font-family: 'SourceSansPro-Regular';
   direction: ${(props) => (props.direction ? props.direction : 'rtl')};
   display: ${(props) =>
     props.display ||

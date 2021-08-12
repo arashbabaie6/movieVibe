@@ -1,9 +1,14 @@
 /**
  * Typography
  */
-export * from './Typography';
+export * from "./Typography";
 
 /**
  * Loading
  */
-export * from './Loading';
+export * from "./Loading";
+
+/**
+ * Layouts
+ */
+export * from "./Layouts";
