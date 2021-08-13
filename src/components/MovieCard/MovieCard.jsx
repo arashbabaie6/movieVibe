@@ -1,66 +1,22 @@
 import React, { useMemo, useState } from "react";
 import { Flex, Text, Image } from "components";
+import { addToLocalStorage } from "helpers";
+// Assets
 import star from "public/images/star-icon.svg";
 import more from "public/images/more-icon.svg";
 import watchlatericon from "public/images/watch-later-icon.svg";
-
-function addFavoriteToLocalStorage(id) {
-  const favorites = JSON.parse(localStorage.getItem("fav"));
-  if (!favorites?.length) {
-    localStorage.setItem("fav", JSON.stringify([id]));
-  } else {
-    const exist = favorites.findIndex((itemId) => itemId === id);
-    if (exist !== -1) {
-      favorites.splice(exist, 1);
-      localStorage.setItem("fav", JSON.stringify(favorites));
-    } else {
-      favorites.push(id);
-      localStorage.setItem("fav", JSON.stringify(favorites));
-    }
-  }
-}
-
-function addWatchLaterToLocalStorage(data) {
-  const watchLaterList = JSON.parse(localStorage.getItem("wl"));
-  if (!watchLaterList?.length) {
-    localStorage.setItem(
-      "wl",
-      JSON.stringify([
-        {
-          id: data.id,
-          vote_average: data.vote_average,
-          poster_path: data.poster_path,
-        },
-      ])
-    );
-  } else {
-    const exist = watchLaterList.findIndex((item) => item.id === data.id);
-    if (exist !== -1) {
-      watchLaterList.splice(exist, 1);
-      localStorage.setItem("wl", JSON.stringify(watchLaterList));
-    } else {
-      watchLaterList.push({
-        id: data.id,
-        vote_average: data.vote_average,
-        poster_path: data.poster_path,
-      });
-      localStorage.setItem("wl", JSON.stringify(watchLaterList));
-    }
-  }
-  console.log(watchLaterList)
-}
 
 const MovieCard = ({ data }) => {
   const [showMore, setShowMore] = useState(false);
 
   const initFavorite = useMemo(() => {
     const favoritesList = JSON.parse(localStorage.getItem("fav"));
-    return favoritesList?.find((itemId) => itemId === data.id) ? true : false;
+    return favoritesList?.find((item) => item.id === data.id) ? true : false;
   }, []);
   const [favorite, setFavorite] = useState(initFavorite);
-  const toggleFavorite = (id) => {
+  const toggleFavorite = (data) => {
     setFavorite(!favorite);
-    addFavoriteToLocalStorage(id);
+    addToLocalStorage(data, "fav");
   };
 
   const initWatchLater = useMemo(() => {
@@ -70,7 +26,7 @@ const MovieCard = ({ data }) => {
   const [watchLater, setWatchLater] = useState(initWatchLater);
   const toggleWatchLater = (data) => {
     setWatchLater(!watchLater);
-    addWatchLaterToLocalStorage(data);
+    addToLocalStorage(data, "wl");
   };
 
   return (
@@ -85,7 +41,7 @@ const MovieCard = ({ data }) => {
           <img width="24px" height="24px" src={star} />
         </Flex>
       )}
-       {watchLater && (
+      {watchLater && (
         <Flex
           width="24px"
           height="24px"
@@ -122,7 +78,7 @@ const MovieCard = ({ data }) => {
           <Text
             color="forceBlack"
             style={{ cursor: "pointer" }}
-            onClick={() => toggleFavorite(data.id)}
+            onClick={() => toggleFavorite(data)}
           >
             {favorite ? "Rmove favorite" : "Add favorite"}
           </Text>

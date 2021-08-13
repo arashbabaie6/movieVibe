@@ -1,3 +1,4 @@
 import debounce from "./debounce.helper";
 import axios from "./axios.helper";
-export { debounce, axios };
+import addToLocalStorage from "./localstorage.helper";
+export { debounce, axios, addToLocalStorage };

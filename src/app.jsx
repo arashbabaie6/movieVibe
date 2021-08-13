@@ -7,7 +7,8 @@ import { MainLayout, Loading } from "components";
 
 const HomePage = lazy(() => import("./pages/Home"));
 const NotFoundPage = lazy(() => import("./pages/404"));
-const MoviesPage = lazy(()=>import("./pages/Movies"))
+const MoviesPage = lazy(() => import("./pages/Movies"));
+const CustomList = lazy(() => import("./pages/CustomList"));
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
             <Switch>
               <Route exact path="/" component={HomePage} />
               <Route exact path="/movies/:search" component={MoviesPage} />
+              <Route exact path="/lists/:type" component={CustomList} />
               <Route path="*" component={NotFoundPage} />
             </Switch>
           </Suspense>
