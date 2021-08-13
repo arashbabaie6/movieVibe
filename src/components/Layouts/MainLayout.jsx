@@ -26,7 +26,7 @@ const MainLayout = (props) => {
         displayM="flex"
         flexDirectionM="column"
         position="fixed"
-        style={{ zIndex: "10", top: "0" }}
+        style={{ zIndex: "100", top: "0" }}
       >
         <Flex width="100%" justifyContent="space-between">
           <HamburgerMenu
@@ -66,8 +66,11 @@ const MainLayout = (props) => {
           display={visible ? "flex" : "none"}
           flexDirection="column"
         >
-          <Link to="/watch-later">
+          <Link to="/lists/watch-later">
             <Text color="forceWhite">Watch later</Text>
+          </Link>
+          <Link to="/lists/favorites">
+            <Text color="forceWhite">Favorites</Text>
           </Link>
         </Flex>
       </Flex>
@@ -91,8 +94,11 @@ const MainLayout = (props) => {
                 Movie Vibe
               </Text>
             </Link>
-            <Link to="/watch-later">
+            <Link to="/lists/watch-later">
               <Text color="forceWhite">Watch later</Text>
+            </Link>
+            <Link to="/lists/favorites">
+              <Text color="forceWhite">Favorites</Text>
             </Link>
           </Flex>
 

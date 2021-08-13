@@ -85,7 +85,7 @@ const SearchInput = ({ onChange, data, fetchingData, onSubmit }) => {
           borderRadius="8px"
           justifyContent="flex-start"
           flexGap="4px 0"
-          style={{ top: 40, left: 0, zIndex: 10, overflowY: "auto" }}
+          style={{ top: 40, left: 0, zIndex: 200, overflowY: "auto" }}
         >
           {!!data.length &&
             data.map((item) => (

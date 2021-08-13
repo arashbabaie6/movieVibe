@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from "react";
 import { Flex, Text, Image } from "components";
-import { addToLocalStorage } from "helpers";
+import { LS } from "helpers";
 // Assets
 import star from "public/images/star-icon.svg";
 import more from "public/images/more-icon.svg";
@@ -10,23 +10,23 @@ const MovieCard = ({ data }) => {
   const [showMore, setShowMore] = useState(false);
 
   const initFavorite = useMemo(() => {
-    const favoritesList = JSON.parse(localStorage.getItem("fav"));
+    const favoritesList = LS.readFromStorage("fav");
     return favoritesList?.find((item) => item.id === data.id) ? true : false;
   }, []);
   const [favorite, setFavorite] = useState(initFavorite);
   const toggleFavorite = (data) => {
     setFavorite(!favorite);
-    addToLocalStorage(data, "fav");
+    LS.addToStorage(data, "fav");
   };
 
   const initWatchLater = useMemo(() => {
-    const watchLaterList = JSON.parse(localStorage.getItem("wl"));
+    const watchLaterList = LS.readFromStorage("wl");
     return watchLaterList?.find((item) => item.id === data.id) ? true : false;
   }, []);
   const [watchLater, setWatchLater] = useState(initWatchLater);
   const toggleWatchLater = (data) => {
     setWatchLater(!watchLater);
-    addToLocalStorage(data, "wl");
+    LS.addToStorage(data, "wl");
   };
 
   return (
