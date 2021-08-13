@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef, useMemo } from "react";
 import styled from "styled-components";
+import { useHistory } from "react-router";
 import { Flex, Text, Image, Loading } from "components";
 
 const Wrapper = styled.div`
@@ -18,6 +19,7 @@ const Wrapper = styled.div`
 `;
 
 const SearchInput = ({ onChange, data, fetchingData, onSubmit }) => {
+  const history = useHistory();
   const [value, setValue] = useState("");
   const [isFocus, setFocus] = useState(false);
   const myRef = useRef(null);
@@ -59,7 +61,7 @@ const SearchInput = ({ onChange, data, fetchingData, onSubmit }) => {
           placeholder="Search for a movie"
           className="search-input"
         />
-        {fetchingData && <Loading size={18}/>}
+        {fetchingData && <Loading size={18} />}
         {!fetchingData && showResult && (
           <Flex
             width="160px"
@@ -97,8 +99,13 @@ const SearchInput = ({ onChange, data, fetchingData, onSubmit }) => {
                 justifyContent="flex-start"
                 flexGap="0 4px"
                 style={{ cursor: "pointer" }}
+                onClick={() => history.push(`/movie/${item.id}`)}
               >
-                <Image width="64px" height="64px" src={item.poster_path || ''} />
+                <Image
+                  width="64px"
+                  height="64px"
+                  src={item.poster_path || ""}
+                />
                 <Flex flexDirection="column" alignItems="flex-start">
                   <Text color="forceBlack">{item.title || null}</Text>
                   <Text color="forceBlack">{item.release_date || null}</Text>

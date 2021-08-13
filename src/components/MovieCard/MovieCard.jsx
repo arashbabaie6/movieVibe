@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from "react";
 import { Flex, Text, Image } from "components";
+import { useHistory } from "react-router";
 import { LS } from "helpers";
 // Assets
 import star from "public/images/star-icon.svg";
@@ -7,6 +8,7 @@ import more from "public/images/more-icon.svg";
 import watchlatericon from "public/images/watch-later-icon.svg";
 
 const MovieCard = ({ data }) => {
+  const history = useHistory();
   const [showMore, setShowMore] = useState(false);
 
   const initFavorite = useMemo(() => {
@@ -30,7 +32,10 @@ const MovieCard = ({ data }) => {
   };
 
   return (
-    <Flex position="relative">
+    <Flex
+      position="relative"
+      style={{ cursor: "pointer" }}
+    >
       {favorite && (
         <Flex
           width="24px"
@@ -97,7 +102,7 @@ const MovieCard = ({ data }) => {
         background="accent"
         position="absolute"
         borderRadius="19px"
-        style={{ bottom: -19, left: 10 }}
+        style={{ bottom: -19, left: 10, zIndex: 1 }}
       >
         <Text
           color={
@@ -112,7 +117,7 @@ const MovieCard = ({ data }) => {
           {data.vote_average}
         </Text>
       </Flex>
-      <Image width="150px" height="225px" src={data.poster_path} />
+      <Image width="150px" height="225px" src={data.poster_path} onClick={() => history.push(`/movie/${data.id}`)}/>
     </Flex>
   );
 };

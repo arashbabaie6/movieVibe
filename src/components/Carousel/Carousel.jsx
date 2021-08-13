@@ -1,5 +1,5 @@
 import React from "react";
-import { Flex, Text, Image } from "components";
+import { Flex, Text } from "components";
 import ImageFallback from "./ImageFallback";
 import MovieCard from "../MovieCard/MovieCard";
 
