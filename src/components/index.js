@@ -27,3 +27,8 @@ export * from "./Image";
  * Carousel
  */
 export * from "./Carousel";
+
+/**
+ * SearchInput
+ */
+ export * from "./SearchInput";

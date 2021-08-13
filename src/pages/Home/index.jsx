@@ -1,7 +1,7 @@
 import React from "react";
-import { Text, Flex, Carousel } from "components";
+import { Text, Flex, Carousel, SearchInput } from "components";
 import { MediaDiscover } from "./home-page.style";
-import axios from "axiosHelper";
+import {axios, debounce} from "helpers";
 
 function generateMediaDiscoverSrc(listOfMovies) {
   const randomNumber = Math.ceil(Math.random() * (listOfMovies.length - 1));
@@ -13,7 +13,23 @@ class HomePage extends React.PureComponent {
     mediaDiscoverSrc: null,
     fetchingPopular: true,
     popularData: null,
+    value: "",
+    searchResult: null,
   };
+
+  handleSearchMovie = debounce(() => {
+    const { value } = this.state;
+    if (value?.length > 2) {
+      axios()
+        .get(`/search/movie?query=${value}`)
+        .then((res) => {
+          this.setState({
+            searchResult: res.data.results,
+          });
+        })
+        .catch((err) => console.log({ err }));
+    }
+  });
 
   componentDidMount = () => {
     axios()
@@ -25,8 +41,22 @@ class HomePage extends React.PureComponent {
       .catch((err) => console.log({ err }))
       .finally(() => this.setState({ fetchingPopular: false }));
   };
+
+  handleSearch = (value) => {
+    if (value?.length <= 2) {
+      this.setState({  value, searchResult: null });
+    } else {
+      this.setState({ value }, () => this.handleSearchMovie());
+    }
+  };
+
   render() {
-    const { mediaDiscoverSrc, fetchingPopular, popularData } = this.state;
+    const {
+      mediaDiscoverSrc,
+      fetchingPopular,
+      popularData,
+      searchResult,
+    } = this.state;
     return (
       <Flex width="100%" maxWidth="1300px" flexDirection="column">
         <MediaDiscover
@@ -48,6 +78,10 @@ class HomePage extends React.PureComponent {
           >
             Explore in millions of movies!
           </Text>
+          <SearchInput
+            onChange={this.handleSearch}
+            data={searchResult}
+          />
         </MediaDiscover>
 
         <Flex width="100%" padding="0 40px">

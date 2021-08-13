@@ -6,6 +6,7 @@ const colors = (theme) => ({
   black: theme === 'dark' ? '#0F121F' : '#F5F5F5',
   accent: '#032541',
   forceWhite: '#FFFFFF',
+  forceBlack: '#000000',
   green: '#39D98A',
   darkGreen: '#20A965',
   red: '#FF5C5C',
