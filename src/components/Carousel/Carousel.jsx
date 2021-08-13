@@ -1,8 +1,9 @@
 import React from "react";
 import { Flex, Text, Image } from "components";
 import ImageFallback from "./ImageFallback";
+import MovieCard from "../MovieCard/MovieCard";
 
-const Carousel = ({ data, title, fetching }) => {
+const Carousel = ({ data, title, fetching = false }) => {
   return (
     <Flex width="100%" flexDirection="column" paddingTop="30px">
       <Text width="100%" fontSize="title4" lineHeight="title4" weight="bold">
@@ -17,21 +18,7 @@ const Carousel = ({ data, title, fetching }) => {
         {!fetching ? (
           <Flex flexGap="0 20px">
             {!!data?.length &&
-              data.map((item) => (
-                <Flex key={item.id} position="relative">
-                  <Flex
-                    width="38px"
-                    height="38px"
-                    background="accent"
-                    position="absolute"
-                    borderRadius="19px"
-                    style={{ bottom: -19, left: 10 }}
-                  >
-                      <Text color={item.vote_average > 7.5 ? 'green' : (item.vote_average > 6.0 ? 'yellow' : 'red')} weight='bold'>{item.vote_average}</Text>
-                  </Flex>
-                  <Image width="150px" height="225px" src={item.poster_path} />
-                </Flex>
-              ))}
+              data.map((item) => <MovieCard key={item.id} data={item} />)}
           </Flex>
         ) : (
           <Flex flexGap="0 20px">

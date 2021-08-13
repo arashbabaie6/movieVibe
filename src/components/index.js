@@ -31,4 +31,9 @@ export * from "./Carousel";
 /**
  * SearchInput
  */
- export * from "./SearchInput";
+export * from "./SearchInput";
+
+/**
+ * MovieCard
+ */
+export * from "./MovieCard";

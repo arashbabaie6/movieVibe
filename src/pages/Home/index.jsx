@@ -1,7 +1,8 @@
 import React from "react";
+import { withRouter } from "react-router";
 import { Text, Flex, Carousel, SearchInput } from "components";
 import { MediaDiscover } from "./home-page.style";
-import {axios, debounce} from "helpers";
+import { axios, debounce } from "helpers";
 
 function generateMediaDiscoverSrc(listOfMovies) {
   const randomNumber = Math.ceil(Math.random() * (listOfMovies.length - 1));
@@ -15,11 +16,13 @@ class HomePage extends React.PureComponent {
     popularData: null,
     value: "",
     searchResult: null,
+    fetchingSearch: false,
   };
 
   handleSearchMovie = debounce(() => {
     const { value } = this.state;
     if (value?.length > 2) {
+      this.setState({ fetchingSearch: true });
       axios()
         .get(`/search/movie?query=${value}`)
         .then((res) => {
@@ -27,7 +30,8 @@ class HomePage extends React.PureComponent {
             searchResult: res.data.results,
           });
         })
-        .catch((err) => console.log({ err }));
+        .catch((err) => console.log({ err }))
+        .finally(() => this.setState({ fetchingSearch: false }));
     }
   });
 
@@ -44,10 +48,15 @@ class HomePage extends React.PureComponent {
 
   handleSearch = (value) => {
     if (value?.length <= 2) {
-      this.setState({  value, searchResult: null });
+      this.setState({ value, searchResult: null });
     } else {
       this.setState({ value }, () => this.handleSearchMovie());
     }
+  };
+
+  handleSubmit = () => {
+    const { value } = this.state;
+    this.props.history.push(`/movies/${value}`);
   };
 
   render() {
@@ -56,6 +65,7 @@ class HomePage extends React.PureComponent {
       fetchingPopular,
       popularData,
       searchResult,
+      fetchingSearch,
     } = this.state;
     return (
       <Flex width="100%" maxWidth="1300px" flexDirection="column">
@@ -81,6 +91,8 @@ class HomePage extends React.PureComponent {
           <SearchInput
             onChange={this.handleSearch}
             data={searchResult}
+            fetchingData={fetchingSearch}
+            onSubmit={this.handleSubmit}
           />
         </MediaDiscover>
 
@@ -96,4 +108,4 @@ class HomePage extends React.PureComponent {
   }
 }
 
-export default HomePage;
+export default withRouter(HomePage);

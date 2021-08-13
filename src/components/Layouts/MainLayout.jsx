@@ -66,18 +66,15 @@ const MainLayout = (props) => {
           display={visible ? "flex" : "none"}
           flexDirection="column"
         >
-          <Link to="/movies">
-            <Text color="forceWhite">Movies</Text>
-          </Link>
-          <Link to="/tv-shows">
-            <Text color="forceWhite">TV Shows</Text>
+          <Link to="/watch-later">
+            <Text color="forceWhite">Watch later</Text>
           </Link>
         </Flex>
       </Flex>
-      <Flex width='100%'  background="accent">
+      <Flex width="100%" background="accent">
         <Flex
           width="100%"
-          maxWidth='1300px'
+          maxWidth="1300px"
           justifyContent="space-between"
           padding="16px"
           display="flex"
@@ -94,11 +91,8 @@ const MainLayout = (props) => {
                 Movie Vibe
               </Text>
             </Link>
-            <Link to="/movies">
-              <Text color="forceWhite">Movies</Text>
-            </Link>
-            <Link to="/tv-shows">
-              <Text color="forceWhite">TV Shows</Text>
+            <Link to="/watch-later">
+              <Text color="forceWhite">Watch later</Text>
             </Link>
           </Flex>
 

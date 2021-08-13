@@ -7,6 +7,7 @@ import { MainLayout, Loading } from "components";
 
 const HomePage = lazy(() => import("./pages/Home"));
 const NotFoundPage = lazy(() => import("./pages/404"));
+const MoviesPage = lazy(()=>import("./pages/Movies"))
 
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
           <Suspense fallback={<Loading />}>
             <Switch>
               <Route exact path="/" component={HomePage} />
+              <Route exact path="/movies/:search" component={MoviesPage} />
               <Route path="*" component={NotFoundPage} />
             </Switch>
           </Suspense>
