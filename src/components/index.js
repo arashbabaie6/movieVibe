@@ -16,9 +16,14 @@ export * from "./Layouts";
 /**
  * HamburgerMenu
  */
- export * from "./HamburgerMenu";
+export * from "./HamburgerMenu";
 
- /**
+/**
  * Image
  */
-  export * from "./Image";
+export * from "./Image";
+
+/**
+ * Carousel
+ */
+export * from "./Carousel";
