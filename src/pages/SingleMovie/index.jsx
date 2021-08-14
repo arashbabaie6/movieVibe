@@ -3,12 +3,18 @@ import { Flex, Image, Loading, Text, Box } from "components";
 import { withRouter } from "react-router";
 import { axios } from "helpers";
 import { SingleWrapper, CoverContainer } from "./single-movie.style";
+import Modal from "react-modal";
+import closeIcon from "public/images/close-icon.svg";
+import MovieCard from "../../components/MovieCard/MovieCard";
 
+Modal.setAppElement(SingleMoviePage);
 class SingleMoviePage extends React.PureComponent {
   state = {
     movieData: null,
     fetching: true,
     videos: [],
+    modalOpen: false,
+    videoKey: null,
   };
 
   componentDidMount = () => {
@@ -20,7 +26,6 @@ class SingleMoviePage extends React.PureComponent {
         const videosList = res.data.results.filter(
           (vid) => vid.type === "Trailer"
         );
-        console.log({ videosList });
         this.setState({ videos: videosList });
       })
       .catch((err) => console.log({ err }));
@@ -28,15 +33,18 @@ class SingleMoviePage extends React.PureComponent {
     axios()
       .get(`/movie/${movieId}`)
       .then((res) => {
-        console.log({ res });
         this.setState({ movieData: res.data });
       })
       .catch((err) => console.log({ err }))
       .finally(() => this.setState({ fetching: false }));
   };
 
+  handleOpenModal = (videoKey) => {
+    this.setState({ videoKey, modalOpen: true });
+  };
+
   render() {
-    const { movieData, fetching, videos } = this.state;
+    const { movieData, fetching, videos, modalOpen, videoKey } = this.state;
     return (
       <SingleWrapper as={Flex} width="100%" padding="16px">
         {!!movieData && (
@@ -44,7 +52,7 @@ class SingleMoviePage extends React.PureComponent {
             borderRadius="0"
             className="cover"
             width="100%"
-            height="482px"
+            height="490px"
             src={movieData?.poster_path}
             imageSize="w1920_and_h800_multi_faces"
           />
@@ -59,12 +67,14 @@ class SingleMoviePage extends React.PureComponent {
               maxWidth="1300px"
               style={{ zIndex: 1 }}
             >
-              <Image
-                width="300px"
-                height="450px"
-                src={movieData?.poster_path}
-                imageSize="w600_and_h900_bestv2"
-              />
+              <Flex justifyContent='center'>
+                <MovieCard
+                  data={movieData}
+                  imageWidth="300px"
+                  imageHeight="450px"
+                  imageSize="w600_and_h900_bestv2"
+                />
+              </Flex>
               <Flex
                 flexDirection="column"
                 alignItems="flex-start"
@@ -85,25 +95,6 @@ class SingleMoviePage extends React.PureComponent {
                         &nbsp;
                       </Text>
                     ))}
-                  </Flex>
-                  <Flex
-                    width="38px"
-                    height="38px"
-                    background="accent"
-                    borderRadius="19px"
-                  >
-                    <Text
-                      color={
-                        movieData?.vote_average > 7.5
-                          ? "green"
-                          : movieData?.vote_average > 6.0
-                          ? "yellow"
-                          : "red"
-                      }
-                      weight="bold"
-                    >
-                      {movieData?.vote_average}
-                    </Text>
                   </Flex>
                 </Flex>
                 <Flex flexDirection="column" alignItems="flex-start">
@@ -135,7 +126,7 @@ class SingleMoviePage extends React.PureComponent {
                             left: 0,
                             cursor: "pointer",
                           }}
-                          onClick={() => console.log("tada")}
+                          onClick={() => this.handleOpenModal(vid.key)}
                         />
                       </Flex>
                     ))}
@@ -144,6 +135,38 @@ class SingleMoviePage extends React.PureComponent {
             </CoverContainer>
           )
         )}
+
+        <Modal
+          isOpen={modalOpen}
+          onRequestClose={() => this.setState({ modalOpen: false })}
+          ariaHideApp={false}
+        >
+          {!!videoKey && (
+            <Flex
+              width="100%"
+              height="100%"
+              flexDirection="column"
+              alignItems="flex-start"
+            >
+              <img
+                src={closeIcon}
+                width="24px"
+                height="24px"
+                onClick={() => this.setState({ modalOpen: false })}
+                style={{ cursor: "pointer", marginBottom: 10 }}
+              />
+              <iframe
+                width="100%"
+                height="100%"
+                src={`https://www.youtube.com/embed/${videoKey}`}
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                title="Embedded youtube"
+              />
+            </Flex>
+          )}
+        </Modal>
       </SingleWrapper>
     );
   }

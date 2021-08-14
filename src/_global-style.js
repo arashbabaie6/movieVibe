@@ -52,6 +52,9 @@ const GlobalStyle = createGlobalStyle`
     background: ${(props) => props.theme.colors.gray1};
     border-radius: 6px;
   }
+  .ReactModal__Overlay {
+    z-index: 900;
+  }
 `;
 
 export default GlobalStyle

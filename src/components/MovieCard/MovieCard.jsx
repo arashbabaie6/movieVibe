@@ -7,7 +7,7 @@ import star from "public/images/star-icon.svg";
 import more from "public/images/more-icon.svg";
 import watchlatericon from "public/images/watch-later-icon.svg";
 
-const MovieCard = ({ data }) => {
+const MovieCard = ({ data, imageWidth='150px', imageHeight='225px', imageSize='w440_and_h660_face' }) => {
   const history = useHistory();
   const [showMore, setShowMore] = useState(false);
 
@@ -32,10 +32,7 @@ const MovieCard = ({ data }) => {
   };
 
   return (
-    <Flex
-      position="relative"
-      style={{ cursor: "pointer" }}
-    >
+    <Flex position="relative" style={{ cursor: "pointer" }}>
       {favorite && (
         <Flex
           width="24px"
@@ -82,6 +79,8 @@ const MovieCard = ({ data }) => {
         >
           <Text
             color="forceBlack"
+            width='100%'
+            align='center'
             style={{ cursor: "pointer" }}
             onClick={() => toggleFavorite(data)}
           >
@@ -89,6 +88,8 @@ const MovieCard = ({ data }) => {
           </Text>
           <Text
             color="forceBlack"
+            align='center'
+            width='100%'
             style={{ cursor: "pointer" }}
             onClick={() => toggleWatchLater(data)}
           >
@@ -117,7 +118,13 @@ const MovieCard = ({ data }) => {
           {data.vote_average}
         </Text>
       </Flex>
-      <Image width="150px" height="225px" src={data.poster_path} onClick={() => history.push(`/movie/${data.id}`)}/>
+      <Image
+        width={imageWidth}
+        height={imageHeight}
+        imageSize={imageSize}
+        src={data.poster_path}
+        onClick={() => history.push(`/movie/${data.id}`)}
+      />
     </Flex>
   );
 };
