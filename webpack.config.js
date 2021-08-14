@@ -1,12 +1,14 @@
+const webpack = require("webpack");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const path = require("path");
+// const ASSET_PATH = process.env.ASSET_PATH || "auto";
 
 module.exports = {
   entry: "./src/index.js",
   output: {
     filename: "[name].bundle.js",
     path: path.resolve(__dirname, "dist"),
-    publicPath: "auto",
+    publicPath: 'auto',
   },
   module: {
     rules: [
@@ -49,6 +51,9 @@ module.exports = {
       filename: "./index.html",
       favicon: "./public/images/watch-later-icon.svg",
     }),
+    // new webpack.DefinePlugin({
+    //   "process.env.ASSET_PATH": JSON.stringify(ASSET_PATH),
+    // }),
   ],
   resolve: {
     alias: {
