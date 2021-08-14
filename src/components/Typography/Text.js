@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 import {
   margin,
   padding,
@@ -10,12 +10,12 @@ import {
   weight,
   display,
   align,
-} from './baseProps';
+} from "./baseProps";
 
 export const Text = styled.span`
-  position: ${(props) => (props.position ? props.position : '')};
-  font-family: 'SourceSansPro-Regular';
-  direction: ${(props) => (props.direction ? props.direction : 'ltr')};
+  position: ${(props) => (props.position ? props.position : "")};
+  font-family: "SourceSansPro-Regular";
+  direction: ${(props) => (props.direction ? props.direction : "ltr")};
   display: ${(props) =>
     props.display ||
     props.displayD ||
@@ -23,7 +23,7 @@ export const Text = styled.span`
     props.displayT ||
     props.displayM
       ? display
-      : 'inline-block'};
+      : "inline-block"};
 
   ${margin};
   ${padding};
@@ -33,7 +33,7 @@ export const Text = styled.span`
   ${lineHeight};
   ${fontSize};
   ${align};
-  ${(props) => (props.color ? color(props.color) : color('white'))};
+  ${(props) => (props.color ? color(props.color) : color("white"))};
 `;
 
 export default Text;

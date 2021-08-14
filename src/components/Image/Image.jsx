@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { Flex } from "components";
 import styled, { keyframes } from "styled-components";
 
@@ -14,7 +14,16 @@ const Wrapper = styled.div`
 `;
 
 const ImageFallback = () => {
-  return <Wrapper as={Flex} width="100%" height="100%" borderRadius="8px" position='absolute' style={{top: 0, left: 0}}/>;
+  return (
+    <Wrapper
+      as={Flex}
+      width="100%"
+      height="100%"
+      borderRadius="8px"
+      position="absolute"
+      style={{ top: 0, left: 0 }}
+    />
+  );
 };
 
 const Image = (props) => {
@@ -25,7 +34,7 @@ const Image = (props) => {
     height = "100%",
     src,
     imageSize = "w440_and_h660_face",
-    borderRadius = '8px',
+    borderRadius = "8px",
     ...restProps
   } = props;
   return (
@@ -34,7 +43,7 @@ const Image = (props) => {
       height={height}
       imageSize={imageSize}
       borderRadius={borderRadius}
-      position='relative'
+      position="relative"
       {...restProps}
     >
       {loading && <ImageFallback />}
@@ -45,6 +54,7 @@ const Image = (props) => {
         style={{ borderRadius: borderRadius }}
         src={`https://www.themoviedb.org/t/p/${imageSize}${src}`}
       />
+      ttt
     </Flex>
   );
 };
