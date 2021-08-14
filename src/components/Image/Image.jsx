@@ -54,7 +54,6 @@ const Image = (props) => {
         style={{ borderRadius: borderRadius }}
         src={`https://www.themoviedb.org/t/p/${imageSize}${src}`}
       />
-      ttt
     </Flex>
   );
 };
