@@ -6,7 +6,7 @@ module.exports = {
   output: {
     filename: "[name].bundle.js",
     path: path.resolve(__dirname, "dist"),
-    publicPath: "/",
+    publicPath: "auto",
   },
   module: {
     rules: [
@@ -47,7 +47,7 @@ module.exports = {
     new HtmlWebPackPlugin({
       template: "./src/index.html",
       filename: "./index.html",
-      favicon: "./public/images/watch-later-icon.svg"
+      favicon: "./public/images/watch-later-icon.svg",
     }),
   ],
   resolve: {
