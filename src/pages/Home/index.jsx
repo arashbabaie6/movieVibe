@@ -2,7 +2,7 @@ import React from "react";
 import { withRouter } from "react-router";
 import { Text, Flex, Carousel, SearchInput } from "components";
 import { MediaDiscover } from "./home-page.style";
-import { axios, debounce } from "helpers";
+import { api, debounce } from "helpers";
 
 function generateMediaDiscoverSrc(listOfMovies) {
   const randomNumber = Math.ceil(Math.random() * (listOfMovies.length - 1));
@@ -14,17 +14,17 @@ class HomePage extends React.PureComponent {
     mediaDiscoverSrc: null,
     fetchingPopular: true,
     popularData: null,
-    value: "",
+    searchQuery: "",
     searchResult: null,
     fetchingSearch: false,
   };
 
   handleSearchMovie = debounce(() => {
-    const { value } = this.state;
-    if (value?.length > 2) {
+    const { searchQuery } = this.state;
+    if (searchQuery?.length > 2) {
       this.setState({ fetchingSearch: true });
-      axios()
-        .get(`/search/movie?query=${value}`)
+      api
+        .searchMovies(searchQuery)
         .then((res) => {
           this.setState({
             searchResult: res.data.results,
@@ -36,8 +36,8 @@ class HomePage extends React.PureComponent {
   });
 
   componentDidMount = () => {
-    axios()
-      .get("/movie/popular")
+    api
+      .getPopularMovies()
       .then((res) => {
         const src = generateMediaDiscoverSrc(res.data.results);
         this.setState({ popularData: res.data.results, mediaDiscoverSrc: src });
@@ -46,17 +46,17 @@ class HomePage extends React.PureComponent {
       .finally(() => this.setState({ fetchingPopular: false }));
   };
 
-  handleSearch = (value) => {
-    if (value?.length <= 2) {
-      this.setState({ value, searchResult: null });
+  handleSearch = (searchQuery) => {
+    if (searchQuery?.length <= 2) {
+      this.setState({ searchQuery, searchResult: null });
     } else {
-      this.setState({ value }, () => this.handleSearchMovie());
+      this.setState({ searchQuery }, () => this.handleSearchMovie());
     }
   };
 
   handleSubmit = () => {
-    const { value } = this.state;
-    this.props.history.push(`/movies/${value}`);
+    const { searchQuery } = this.state;
+    this.props.history.push(`/movies/${searchQuery}`);
   };
 
   render() {

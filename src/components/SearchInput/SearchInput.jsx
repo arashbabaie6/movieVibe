@@ -1,4 +1,10 @@
-import React, { useEffect, useState, useRef, useMemo } from "react";
+import React, {
+  useEffect,
+  useState,
+  useRef,
+  useMemo,
+  useCallback,
+} from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router";
 import { Flex, Text, Image, Loading } from "components";
@@ -24,11 +30,11 @@ const SearchInput = ({ onChange, data, fetchingData, onSubmit }) => {
   const [isFocus, setFocus] = useState(false);
   const myRef = useRef(null);
 
-  const handleClick = (e) => {
+  const handleClick = useCallback((e) => {
     if (myRef?.current && myRef.current.contains(e.target)) {
       setFocus(true);
     } else setFocus(false);
-  };
+  }, []);
 
   const showResult = useMemo(() => {
     return !!data?.length && !!value?.length && isFocus;

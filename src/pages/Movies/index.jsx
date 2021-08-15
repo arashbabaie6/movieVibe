@@ -1,7 +1,7 @@
 import React from "react";
 import { withRouter } from "react-router";
 import { Flex, MovieCard, Loading, Text } from "components";
-import { axios } from "helpers";
+import { api } from "helpers";
 
 class MoviesPage extends React.PureComponent {
   state = {
@@ -27,7 +27,7 @@ class MoviesPage extends React.PureComponent {
 
   handleLoadMovies = (page = 1) => {
     const searchQuery = this.props.match.params.search;
-    return axios().get(`/search/movie?query=${searchQuery}&page=${page}`);
+    return api.searchMovies(searchQuery, page);
   };
 
   handleLoadMore = () => {
@@ -77,8 +77,8 @@ class MoviesPage extends React.PureComponent {
               background="accent"
               marginTop="40px"
               borderRadius="8px"
-              onClick={() => this.handleLoadMore()}
-              style={{cursor: 'pointer'}}
+              onClick={this.handleLoadMore}
+              style={{ cursor: "pointer" }}
             >
               <Text weight="bold" color="forceWhite">
                 Load more

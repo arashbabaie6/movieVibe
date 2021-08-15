@@ -1,7 +1,7 @@
 import React from "react";
 import { Flex, Image, Loading, Text, Box } from "components";
 import { withRouter } from "react-router";
-import { axios } from "helpers";
+import { api } from "helpers";
 import { SingleWrapper, CoverContainer } from "./single-movie.style";
 import Modal from "react-modal";
 import closeIcon from "public/images/close-icon.svg";
@@ -20,8 +20,8 @@ class SingleMoviePage extends React.PureComponent {
   componentDidMount = () => {
     const movieId = this.props.match.params.id;
 
-    axios()
-      .get(`movie/${movieId}/videos`)
+    api
+      .getMovieTrailers(movieId)
       .then((res) => {
         const videosList = res.data.results.filter(
           (vid) => vid.type === "Trailer"
@@ -30,8 +30,8 @@ class SingleMoviePage extends React.PureComponent {
       })
       .catch((err) => console.log({ err }));
 
-    axios()
-      .get(`/movie/${movieId}`)
+    api
+      .getMovie(movieId)
       .then((res) => {
         this.setState({ movieData: res.data });
       })
@@ -41,6 +41,10 @@ class SingleMoviePage extends React.PureComponent {
 
   handleOpenModal = (videoKey) => {
     this.setState({ videoKey, modalOpen: true });
+  };
+
+  handleCloseModal = () => {
+    this.setState({ modalOpen: false });
   };
 
   render() {
@@ -67,7 +71,7 @@ class SingleMoviePage extends React.PureComponent {
               maxWidth="1300px"
               style={{ zIndex: 1 }}
             >
-              <Flex justifyContent='center'>
+              <Flex justifyContent="center">
                 <MovieCard
                   data={movieData}
                   imageWidth="300px"
@@ -87,10 +91,10 @@ class SingleMoviePage extends React.PureComponent {
                   <Text>{movieData?.release_date}</Text>|
                   <Text>({movieData?.original_language.toUpperCase()})</Text>|
                   <Flex flexWrap="wrap">
-                    {movieData?.genres?.map((genre, index) => (
+                    {movieData?.genres?.map((genre, index, genres) => (
                       <Text key={genre.id}>
                         {`${genre.name}${
-                          movieData?.genres.length - 1 !== index ? "," : ""
+                          genres.length - 1 !== index ? "," : ""
                         }`}
                         &nbsp;
                       </Text>
@@ -138,7 +142,7 @@ class SingleMoviePage extends React.PureComponent {
 
         <Modal
           isOpen={modalOpen}
-          onRequestClose={() => this.setState({ modalOpen: false })}
+          onRequestClose={this.handleCloseModal}
           ariaHideApp={false}
         >
           {!!videoKey && (
@@ -152,7 +156,7 @@ class SingleMoviePage extends React.PureComponent {
                 src={closeIcon}
                 width="24px"
                 height="24px"
-                onClick={() => this.setState({ modalOpen: false })}
+                onClick={this.handleCloseModal}
                 style={{ cursor: "pointer", marginBottom: 10 }}
               />
               <iframe

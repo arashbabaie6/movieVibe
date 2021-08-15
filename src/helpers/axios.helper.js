@@ -1,4 +1,3 @@
-// API_KEY bb7279b8f7e00a98c2907da763ad0245
 import axios from "axios";
 
 const API_KEY = "bb7279b8f7e00a98c2907da763ad0245";

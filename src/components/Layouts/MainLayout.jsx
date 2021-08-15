@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { withTheme } from "styled-components";
 import { Flex, Text, HamburgerMenu } from "components";
 import { Link } from "react-router-dom";
@@ -7,6 +7,8 @@ import { Link } from "react-router-dom";
 import DarkIcon from "public/images/theme-dark-icon.svg";
 import LightIcon from "public/images/theme-light-icon.svg";
 
+// Since we don't have any other layout I prefer to implement the Navbar here
+// If we have more than one layout then I prefer to make a separate file for Navbar
 const MainLayout = (props) => {
   const {
     children,
@@ -14,6 +16,26 @@ const MainLayout = (props) => {
   } = props;
 
   const [visible, setVisible] = useState(false);
+  const menuRef = useRef(null);
+
+  const toggleVisible = () => {
+    setVisible(!visible);
+  };
+
+  const toggleTheme = () => {
+    setTheme(theme === "light" ? "dark" : "light");
+  };
+
+  const handleClick = useCallback((e) => {
+    if (!!menuRef?.current && !menuRef.current.contains(e.target)) {
+      setVisible(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener("click", handleClick);
+    return () => window.removeEventListener("click", handleClick);
+  }, []);
 
   return (
     <Flex width="100%" flexDirection="column">
@@ -28,12 +50,8 @@ const MainLayout = (props) => {
         position="fixed"
         style={{ zIndex: "100", top: "0" }}
       >
-        <Flex width="100%" justifyContent="space-between">
-          <HamburgerMenu
-            onClick={() => {
-              setVisible(!visible);
-            }}
-          />
+        <Flex width="100%" justifyContent="space-between" ref={menuRef}>
+          <HamburgerMenu onClick={toggleVisible} />
           <Flex flexGap="0 8px">
             <Link to="/">
               <Text color="lightBlue" fontSize="title4" weight="bold">
@@ -46,7 +64,7 @@ const MainLayout = (props) => {
                 width="24px"
                 height="24px"
                 className="pointer"
-                onClick={() => setTheme("light")}
+                onClick={toggleTheme}
               />
             )}
             {theme === "light" && (
@@ -55,7 +73,7 @@ const MainLayout = (props) => {
                 width="24px"
                 height="24px"
                 className="pointer"
-                onClick={() => setTheme("dark")}
+                onClick={toggleTheme}
               />
             )}
           </Flex>
@@ -109,7 +127,7 @@ const MainLayout = (props) => {
                 width="48px"
                 height="48px"
                 className="pointer"
-                onClick={() => setTheme("light")}
+                onClick={toggleTheme}
               />
             )}
             {theme === "light" && (
@@ -118,7 +136,7 @@ const MainLayout = (props) => {
                 width="48px"
                 height="48px"
                 className="pointer"
-                onClick={() => setTheme("dark")}
+                onClick={toggleTheme}
               />
             )}
           </Flex>

@@ -2,12 +2,12 @@ const webpack = require("webpack");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const path = require("path");
 
-module.exports = {
+module.exports = (env, options) => ({
   entry: "./src/index.js",
   output: {
     filename: "[name].bundle.js",
     path: path.resolve(__dirname, "dist"),
-    publicPath: '/',
+    publicPath: options.mode === "production" ? "auto" : "/",
   },
   module: {
     rules: [
@@ -62,4 +62,4 @@ module.exports = {
   optimization: {
     runtimeChunk: "single",
   },
-};
+});
