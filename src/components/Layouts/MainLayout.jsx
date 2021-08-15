@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { withTheme } from "styled-components";
+import { ToastContainer } from "react-toast";
 import { Flex, Text, HamburgerMenu } from "components";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
@@ -145,6 +146,7 @@ const MainLayout = (props) => {
       </Flex>
       <Flex width="100%" marginTopM="56px" justifyContent="center">
         {children}
+        <ToastContainer />
       </Flex>
     </Flex>
   );
@@ -152,7 +154,7 @@ const MainLayout = (props) => {
 
 MainLayout.propTypes = {
   children: PropTypes.node.isRequired,
-  theme: PropTypes.object
-}
+  theme: PropTypes.object,
+};
 
 export default withTheme(MainLayout);

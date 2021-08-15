@@ -2,7 +2,7 @@ import React from "react";
 import { withRouter } from "react-router";
 import { Text, Flex, Carousel, SearchInput } from "components";
 import { MediaDiscover } from "./home-page.style";
-import { api, debounce } from "helpers";
+import { api, debounce, errorHelper } from "helpers";
 
 function generateMediaDiscoverSrc(listOfMovies) {
   const randomNumber = Math.ceil(Math.random() * (listOfMovies.length - 1));
@@ -30,7 +30,7 @@ class HomePage extends React.PureComponent {
             searchResult: res.data.results,
           });
         })
-        .catch((err) => console.log({ err }))
+        .catch(errorHelper)
         .finally(() => this.setState({ fetchingSearch: false }));
     }
   });
@@ -42,7 +42,7 @@ class HomePage extends React.PureComponent {
         const src = generateMediaDiscoverSrc(res.data.results);
         this.setState({ popularData: res.data.results, mediaDiscoverSrc: src });
       })
-      .catch((err) => console.log({ err }))
+      .catch(errorHelper)
       .finally(() => this.setState({ fetchingPopular: false }));
   };
 

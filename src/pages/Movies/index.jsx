@@ -1,7 +1,7 @@
 import React from "react";
 import { withRouter } from "react-router";
 import { Flex, MovieCard, Loading, Text } from "components";
-import { api } from "helpers";
+import { api, errorHelper } from "helpers";
 
 class MoviesPage extends React.PureComponent {
   state = {
@@ -21,7 +21,7 @@ class MoviesPage extends React.PureComponent {
           totalPage: res.data.total_pages,
         });
       })
-      .catch((err) => console.log({ err }))
+      .catch(errorHelper)
       .finally(() => this.setState({ fetchingMovies: false }));
   };
 
@@ -41,7 +41,7 @@ class MoviesPage extends React.PureComponent {
           totalPage: res.data.total_pages,
         });
       })
-      .catch((err) => console.log({ err }))
+      .catch(errorHelper)
       .finally(() => this.setState({ loadMoreFetching: false }));
   };
 

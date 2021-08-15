@@ -1,7 +1,7 @@
 import React from "react";
 import { Flex, Image, Loading, Text, Box } from "components";
 import { withRouter } from "react-router";
-import { api } from "helpers";
+import { api, errorHelper } from "helpers";
 import { SingleWrapper, CoverContainer } from "./single-movie.style";
 import Modal from "react-modal";
 import closeIcon from "public/images/close-icon.svg";
@@ -28,14 +28,14 @@ class SingleMoviePage extends React.PureComponent {
         );
         this.setState({ videos: videosList });
       })
-      .catch((err) => console.log({ err }));
+      .catch(errorHelper);
 
     api
       .getMovie(movieId)
       .then((res) => {
         this.setState({ movieData: res.data });
       })
-      .catch((err) => console.log({ err }))
+      .catch(errorHelper)
       .finally(() => this.setState({ fetching: false }));
   };
 
