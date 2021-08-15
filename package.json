@@ -9,9 +9,7 @@
     "production": "webpack serve --mode production",
     "test": "jest",
     "build": "rm -rf ./dist && webpack --mode production",
-    "bootstrap": "npm ci && npm run production",
-    "deploy": "gh-pages -d dist",
-    "predeploy": "npm run build"
+    "bootstrap": "npm ci && npm run production"
   },
   "author": "Arash",
   "license": "ISC",

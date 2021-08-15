@@ -10,7 +10,7 @@ class CustomList extends React.PureComponent {
 
   generateList = () => {
     const type = this.props.match.params.type;
-    let list = null;
+    let list = [];
     switch (type) {
       case "favorites":
         {
@@ -25,12 +25,10 @@ class CustomList extends React.PureComponent {
         break;
 
       default:
-        list = null;
+        list = [];
         break;
     }
-    if (!!list?.length) {
-      this.setState({ dataList: list });
-    }
+    this.setState({ dataList: list });
   };
 
   componentDidMount = () => {

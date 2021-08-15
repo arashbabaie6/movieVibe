@@ -4,12 +4,17 @@ import { useHistory } from "react-router";
 import { LS } from "helpers";
 // Assets
 import star from "public/images/star-icon.svg";
-import more from "public/images/more-icon.svg";
+import starWhite from "public/images/star-white-icon.svg";
 import watchlatericon from "public/images/watch-later-icon.svg";
+import watchlaterGreenicon from "public/images/watch-later-green-icon.svg";
 
-const MovieCard = ({ data, imageWidth='150px', imageHeight='225px', imageSize='w440_and_h660_face' }) => {
+const MovieCard = ({
+  data,
+  imageWidth = "150px",
+  imageHeight = "225px",
+  imageSize = "w440_and_h660_face",
+}) => {
   const history = useHistory();
-  const [showMore, setShowMore] = useState(false);
 
   const initFavorite = useMemo(() => {
     const favoritesList = LS.readFromStorage("fav");
@@ -33,70 +38,28 @@ const MovieCard = ({ data, imageWidth='150px', imageHeight='225px', imageSize='w
 
   return (
     <Flex position="relative" style={{ cursor: "pointer" }}>
-      {favorite && (
-        <Flex
-          width="24px"
-          height="24px"
-          position="absolute"
-          style={{ top: 0, left: 0, zIndex: 10 }}
-        >
-          <img width="24px" height="24px" src={star} />
-        </Flex>
-      )}
-      {watchLater && (
-        <Flex
-          width="24px"
-          height="24px"
-          position="absolute"
-          style={{ top: 24, left: 2, zIndex: 10 }}
-        >
-          <img width="17px" height="17px" src={watchlatericon} />
-        </Flex>
-      )}
       <Flex
         width="24px"
         height="24px"
         position="absolute"
-        style={{ top: 0, right: 0, zIndex: 10 }}
+        style={{ top: 0, left: 0, zIndex: 10 }}
+        onClick={() => toggleFavorite(data)}
+      >
+        <img width="24px" height="24px" src={favorite ? star : starWhite} />
+      </Flex>
+      <Flex
+        width="24px"
+        height="24px"
+        position="absolute"
+        style={{ top: 24, left: 2, zIndex: 10 }}
+        onClick={() => toggleWatchLater(data)}
       >
         <img
-          width="24px"
-          height="24px"
-          src={more}
-          onClick={() => setShowMore(!showMore)}
-          style={{ cursor: "pointer" }}
+          width="17px"
+          height="17px"
+          src={watchLater ? watchlaterGreenicon : watchlatericon}
         />
       </Flex>
-      {showMore && (
-        <Flex
-          width="80%"
-          position="absolute"
-          flexDirection="column"
-          flexGap="4px 0"
-          background="forceWhite"
-          borderRadius="8px"
-          style={{ top: 24, right: 4, zIndex: 10 }}
-        >
-          <Text
-            color="forceBlack"
-            width='100%'
-            align='center'
-            style={{ cursor: "pointer" }}
-            onClick={() => toggleFavorite(data)}
-          >
-            {favorite ? "Rmove favorite" : "Add favorite"}
-          </Text>
-          <Text
-            color="forceBlack"
-            align='center'
-            width='100%'
-            style={{ cursor: "pointer" }}
-            onClick={() => toggleWatchLater(data)}
-          >
-            {watchLater ? "Remove watch later" : "Add watch later"}
-          </Text>
-        </Flex>
-      )}
       <Flex
         width="38px"
         height="38px"
