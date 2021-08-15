@@ -8,6 +8,7 @@ import React, {
 import styled from "styled-components";
 import { useHistory } from "react-router";
 import { Flex, Text, Image, Loading } from "components";
+import PropTypes from "prop-types";
 
 const Wrapper = styled.div`
   .search-input {
@@ -24,7 +25,12 @@ const Wrapper = styled.div`
   }
 `;
 
-const SearchInput = ({ onChange, data, fetchingData, onSubmit }) => {
+const SearchInput = ({
+  onChange,
+  data: moviesList,
+  fetchingData,
+  onSubmit,
+}) => {
   const history = useHistory();
   const [value, setValue] = useState("");
   const [isFocus, setFocus] = useState(false);
@@ -37,8 +43,8 @@ const SearchInput = ({ onChange, data, fetchingData, onSubmit }) => {
   }, []);
 
   const showResult = useMemo(() => {
-    return !!data?.length && !!value?.length && isFocus;
-  }, [data, value, isFocus]);
+    return !!moviesList?.length && !!value?.length && isFocus;
+  }, [moviesList, value, isFocus]);
 
   useEffect(() => {
     !!onChange && onChange(value);
@@ -95,8 +101,8 @@ const SearchInput = ({ onChange, data, fetchingData, onSubmit }) => {
           flexGap="4px 0"
           style={{ top: 40, left: 0, zIndex: 200, overflowY: "auto" }}
         >
-          {!!data.length &&
-            data.map((item) => (
+          {!!moviesList.length &&
+            moviesList.map((item) => (
               <Flex
                 className="search-item"
                 key={item.id}
@@ -122,6 +128,13 @@ const SearchInput = ({ onChange, data, fetchingData, onSubmit }) => {
       )}
     </Wrapper>
   );
+};
+
+SearchInput.propTypes = {
+  data: PropTypes.arrayOf(PropTypes.object),
+  onChange: PropTypes.func,
+  fetchingData: PropTypes.bool,
+  onSubmit: PropTypes.func,
 };
 
 export default SearchInput;

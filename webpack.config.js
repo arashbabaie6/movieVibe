@@ -19,6 +19,11 @@ module.exports = (env, options) => ({
         },
       },
       {
+        test: /\.(js|jsx)$/,
+        enforce: "pre",
+        use: ["source-map-loader"],
+      },
+      {
         test: /\.html$/,
         use: [
           {

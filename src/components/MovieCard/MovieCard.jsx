@@ -2,6 +2,7 @@ import React, { useMemo, useState } from "react";
 import { Flex, Text, Image } from "components";
 import { useHistory } from "react-router";
 import { LS } from "helpers";
+import PropTypes from "prop-types";
 // Assets
 import star from "public/images/star-icon.svg";
 import starWhite from "public/images/star-white-icon.svg";
@@ -97,6 +98,13 @@ const MovieCard = ({
       />
     </Flex>
   );
+};
+
+MovieCard.propTypes = {
+  data: PropTypes.object.isRequired,
+  imageWidth: PropTypes.string,
+  imageHeight: PropTypes.string,
+  imageSize: PropTypes.string,
 };
 
 export default MovieCard;

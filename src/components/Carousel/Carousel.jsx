@@ -2,6 +2,7 @@ import React from "react";
 import { Flex, Text } from "components";
 import ImageFallback from "./ImageFallback";
 import MovieCard from "../MovieCard/MovieCard";
+import PropTypes from "prop-types";
 
 const Carousel = ({ data, title, fetching = false }) => {
   return (
@@ -30,6 +31,12 @@ const Carousel = ({ data, title, fetching = false }) => {
       </Flex>
     </Flex>
   );
+};
+
+Carousel.propTypes = {
+  data: PropTypes.arrayOf(PropTypes.object),
+  title: PropTypes.string.isRequired,
+  fetching: PropTypes.bool,
 };
 
 export default Carousel;

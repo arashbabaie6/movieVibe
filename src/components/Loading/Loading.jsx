@@ -1,5 +1,6 @@
-import React from 'react';
-import styled, { keyframes } from 'styled-components';
+import React from "react";
+import styled, { keyframes } from "styled-components";
+import PropTypes from "prop-types";
 
 const spin = keyframes`
   0% { transform: rotate(0deg); }
@@ -20,6 +21,10 @@ const LoadingWrapper = styled.div`
 
 const Loading = ({ size = 64 }) => {
   return <LoadingWrapper size={size} />;
+};
+
+Loading.propTypes = {
+  size: PropTypes.number,
 };
 
 export default Loading;

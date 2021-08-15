@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Flex } from "components";
 import styled, { keyframes } from "styled-components";
+import PropTypes from "prop-types";
 
 const animateBg = keyframes`
 0% { background-position: 0% 0%; }
@@ -56,6 +57,14 @@ const Image = (props) => {
       />
     </Flex>
   );
+};
+
+Image.propTypes = {
+  width: PropTypes.string,
+  height: PropTypes.string,
+  src: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+  imageSize: PropTypes.string,
+  borderRadius: PropTypes.string,
 };
 
 export default Image;

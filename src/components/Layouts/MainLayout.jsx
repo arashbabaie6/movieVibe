@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import { withTheme } from "styled-components";
 import { Flex, Text, HamburgerMenu } from "components";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
 // assets
 import DarkIcon from "public/images/theme-dark-icon.svg";
@@ -148,5 +149,10 @@ const MainLayout = (props) => {
     </Flex>
   );
 };
+
+MainLayout.propTypes = {
+  children: PropTypes.node.isRequired,
+  theme: PropTypes.object
+}
 
 export default withTheme(MainLayout);
