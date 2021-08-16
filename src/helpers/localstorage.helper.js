@@ -1,4 +1,4 @@
-function addToStorage(data, key) {
+function toggle(data, key) {
   const storedList = JSON.parse(localStorage.getItem(key));
   if (!storedList?.length) {
     localStorage.setItem(
@@ -25,10 +25,33 @@ function addToStorage(data, key) {
       localStorage.setItem(key, JSON.stringify(storedList));
     }
   }
-}
 
-function readFromStorage(key) {
   return JSON.parse(localStorage.getItem(key));
 }
 
-export { addToStorage, readFromStorage };
+function read(key) {
+  return JSON.parse(localStorage.getItem(key));
+}
+
+function initiate() {
+  const favorites = JSON.parse(localStorage.getItem("fav"));
+  const watchLater = JSON.parse(localStorage.getItem("wl"));
+  const initialValue = {};
+
+  if (!Array.isArray(favorites)) {
+    localStorage.setItem("fav", JSON.stringify([]));
+    initialValue["favorites"] = [];
+  } else {
+    initialValue["favorites"] = favorites;
+  }
+  if (!Array.isArray(watchLater)) {
+    localStorage.setItem("wl", JSON.stringify([]));
+    initialValue["watchLater"] = [];
+  } else {
+    initialValue["watchLater"] = watchLater;
+  }
+
+  return initialValue;
+}
+
+export { toggle, read, initiate };

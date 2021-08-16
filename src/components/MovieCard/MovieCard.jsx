@@ -1,7 +1,7 @@
-import React, { useMemo, useState } from "react";
+import React, { useContext, useMemo, useState } from "react";
 import { Flex, Text, Image } from "components";
 import { useHistory } from "react-router";
-import { LS } from "helpers";
+import {  Context } from "helpers";
 import PropTypes from "prop-types";
 // Assets
 import star from "public/images/star-icon.svg";
@@ -15,10 +15,11 @@ const MovieCard = ({
   imageHeight = "225px",
   imageSize = "w440_and_h660_face",
 }) => {
+  const context = useContext(Context);
   const history = useHistory();
 
   const initFavorite = useMemo(() => {
-    const favoritesList = LS.readFromStorage("fav");
+    const favoritesList = context.load("fav");
     return favoritesList?.find((item) => item.id === movieData.id)
       ? true
       : false;
@@ -26,11 +27,11 @@ const MovieCard = ({
   const [favorite, setFavorite] = useState(initFavorite);
   const handleClickFavorite = (movieData) => {
     setFavorite(!favorite);
-    LS.addToStorage(movieData, "fav");
+    context.toggle(movieData, "fav");
   };
 
   const initWatchLater = useMemo(() => {
-    const watchLaterList = LS.readFromStorage("wl");
+    const watchLaterList = context.load("wl");
     return watchLaterList?.find((item) => item.id === movieData.id)
       ? true
       : false;
@@ -38,7 +39,7 @@ const MovieCard = ({
   const [watchLater, setWatchLater] = useState(initWatchLater);
   const handleClickWatchLater = (movieData) => {
     setWatchLater(!watchLater);
-    LS.addToStorage(movieData, "wl");
+    context.toggle(movieData, "wl");
   };
 
   const handleClickImage = () => {
