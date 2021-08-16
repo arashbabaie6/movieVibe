@@ -5,9 +5,9 @@ const path = require("path");
 module.exports = (env, options) => ({
   entry: "./src/index.js",
   output: {
-    filename: "[name].bundle.js",
+    filename: "[name].[hash].js",
     path: path.resolve(__dirname, "dist"),
-    publicPath: options.mode === "production" ? "auto" : "/",
+    publicPath: "/",
   },
   module: {
     rules: [
