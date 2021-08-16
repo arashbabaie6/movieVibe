@@ -57,7 +57,7 @@ class SingleMoviePage extends React.PureComponent {
             className="cover"
             width="100%"
             height="490px"
-            src={movieData?.poster_path}
+            src={movieData?.poster_path || ""}
             imageSize="w1920_and_h800_multi_faces"
           />
         )}

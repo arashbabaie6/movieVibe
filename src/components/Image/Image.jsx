@@ -17,6 +17,7 @@ const Wrapper = styled.div`
 const ImageFallback = () => {
   return (
     <Wrapper
+      data-testid="fallback"
       as={Flex}
       width="100%"
       height="100%"

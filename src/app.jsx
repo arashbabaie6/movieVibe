@@ -1,10 +1,11 @@
-import React, { Suspense, lazy, useMemo } from "react";
+import React, { Suspense, lazy, useState } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
-import themeVariables from "./theme";
 import GlobalStyle from "./_global-style";
 import { MainLayout, Loading } from "components";
 import Context, { initialContext } from "./helpers/context.helper";
+import colors from "./theme/colors";
+import device, { breakpoints } from "./theme/devices";
 
 // Routes
 const HomePage = lazy(() => import("./pages/Home"));
@@ -14,9 +15,19 @@ const CustomList = lazy(() => import("./pages/CustomList"));
 const SingleMoviePage = lazy(() => import("./pages/SingleMovie"));
 
 const App = () => {
+  const [theme, setTheme] = useState("dark");
+
   return (
     <BrowserRouter>
-      <ThemeProvider theme={themeVariables()}>
+      <ThemeProvider
+        theme={{
+          colors: colors(theme),
+          device: device,
+          breakpoints: breakpoints,
+          theme: theme,
+          setTheme: setTheme,
+        }}
+      >
         <GlobalStyle />
         <Context.Provider value={initialContext}>
           <MainLayout>

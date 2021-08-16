@@ -1,14 +1,27 @@
-import React from "react";
-import "jest-styled-components";
+import React, { useState } from "react";
 import { ThemeProvider } from "styled-components";
 import { render } from "@testing-library/react";
-import themeVariables from "../theme";
+import colors from "../theme/colors";
+import device, { breakpoints } from "../theme/devices";
 
 export const renderWithTheme = (Component) => {
-  const App = () => (
-    <ThemeProvider theme={themeVariables()}>
-      <Component />
-    </ThemeProvider>
-  );
-  render(<App />);
+  const App = () => {
+    const [theme, setTheme] = useState("dark");
+
+    return (
+      <ThemeProvider
+        theme={{
+          colors: colors(theme),
+          device: device,
+          breakpoints: breakpoints,
+          theme: "dark",
+          setTheme: setTheme,
+        }}
+      >
+        {Component}
+      </ThemeProvider>
+    );
+  };
+  const { container } = render(<App />);
+  return container
 };
