@@ -1,10 +1,12 @@
 import React from "react";
 import { withRouter } from "react-router";
 import { Flex } from "components";
-import RenderList from './RenderList'
+import RenderList from "./RenderList";
 
 class CustomList extends React.PureComponent {
   render() {
+    const { type: listType } = this.props.match.params;
+    console.log();
     return (
       <Flex
         width="100%"
@@ -13,7 +15,7 @@ class CustomList extends React.PureComponent {
         flexWrap="wrap"
         flexGap="30px 30px"
       >
-        <RenderList />
+        <RenderList listType={listType} />
       </Flex>
     );
   }

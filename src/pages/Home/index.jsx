@@ -46,7 +46,7 @@ class HomePage extends React.PureComponent {
       .finally(() => this.setState({ fetchingPopular: false }));
   };
 
-  handleSearch = (searchQuery) => {
+  onInputChange = (searchQuery) => {
     if (searchQuery?.length <= 2) {
       this.setState({ searchQuery, searchResult: null });
     } else {
@@ -89,7 +89,7 @@ class HomePage extends React.PureComponent {
             Explore in millions of movies!
           </Text>
           <SearchInput
-            onChange={this.handleSearch}
+            onChange={this.onInputChange}
             data={searchResult}
             fetchingData={fetchingSearch}
             onSubmit={this.handleSubmit}

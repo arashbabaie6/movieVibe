@@ -60,24 +60,13 @@ const MainLayout = (props) => {
                 Movie Vibe
               </Text>
             </Link>
-            {theme === "dark" && (
-              <img
-                src={LightIcon}
-                width="24px"
-                height="24px"
-                className="pointer"
-                onClick={toggleTheme}
-              />
-            )}
-            {theme === "light" && (
-              <img
-                src={DarkIcon}
-                width="24px"
-                height="24px"
-                className="pointer"
-                onClick={toggleTheme}
-              />
-            )}
+            <img
+              src={theme === "dark" ? LightIcon : DarkIcon}
+              width="24px"
+              height="24px"
+              className="pointer"
+              onClick={toggleTheme}
+            />
           </Flex>
         </Flex>
         <Flex
