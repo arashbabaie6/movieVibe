@@ -2,7 +2,7 @@ const webpack = require("webpack");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const path = require("path");
 
-module.exports = (env, options) => ({
+module.exports = {
   entry: "./src/index.js",
   output: {
     filename: "[name].[hash].js",
@@ -67,4 +67,4 @@ module.exports = (env, options) => ({
   optimization: {
     runtimeChunk: "single",
   },
-});
+};
